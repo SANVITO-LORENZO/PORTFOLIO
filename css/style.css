@@ -237,14 +237,61 @@ footer {
    MEDIA QUERIES (PER CELLULARI E TABLET)
    ========================================= */
 @media (max-width: 900px) {
+    /* Tablet */
     .grid-container { grid-template-columns: repeat(2, 1fr); }
     header { padding: 20px; }
+    .project-grid { gap: 40px; }
 }
 
 @media (max-width: 768px) {
-    nav { flex-direction: column; gap: 20px; }
+    /* Cellulari */
+    
+    /* 1. Sistemazione del Menu in alto */
+    nav { 
+        flex-direction: column; 
+        gap: 15px; 
+    }
+    .nav-menu { 
+        flex-wrap: wrap; /* Fa andare a capo le voci del menu se non ci stanno */
+        justify-content: center; 
+        gap: 15px; 
+        width: 100%;
+    }
+    .nav-menu a { 
+        font-size: 0.85rem; /* Rimpicciolisce leggermente il font del menu */
+    }
+    
+    /* 2. Sistemazione Home Page */
     .grid-container { grid-template-columns: 1fr; }
     .intro { margin-top: 40px; text-align: center; }
+    
+    /* 3. Sistemazione Titolo Pagina Progetto */
+    .project-title-container { 
+        flex-direction: column; 
+        text-align: center; 
+        gap: 15px;
+        margin-bottom: 40px;
+    }
+    .project-title-container h1 { font-size: 2.2rem; }
+    .tagline { font-size: 0.85rem; line-height: 1.4; }
+    .bot-logo-img { width: 85px; height: 85px; } /* Logo un po' più piccolo */
+    
+    /* 4. Centratura dei contenuti e Bottoni Grandi */
+    .project-grid { grid-template-columns: 1fr; gap: 40px; }
+    .project-info h2, .project-info p { text-align: center; }
+    
+    .tech-stack h3 { text-align: center; }
+    .tech-stack ul { justify-content: center; } /* Centra i blocchetti delle tecnologie */
+    
+    .project-buttons { 
+        flex-direction: column; /* Incolonna i bottoni uno sopra l'altro */
+        gap: 15px; 
+        width: 100%;
+    }
+    .btn-neon, .btn-outline { 
+        width: 100%; /* I bottoni prendono tutta la larghezza dello schermo */
+        text-align: center; 
+    }
 }
 
 /* =========================================
