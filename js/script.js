@@ -73,9 +73,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 5. CUSTOM CURSOR
     // ==========================================
+
     const cursor = document.querySelector('.custom-cursor');
-    if (cursor && window.innerWidth > 768) {
+    
+    // Controlla se il dispositivo supporta il touch o ha un mouse primario
+    const isTouchDevice = (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+
+    // Attiva il custom cursor SOLO se NON è un dispositivo touch e lo schermo è largo
+    if (cursor && !isTouchDevice && window.innerWidth > 768) {
         document.addEventListener('mousemove', (e) => {
+            cursor.style.display = 'block'; // Mostra il cursore solo quando il mouse si muove
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
@@ -84,6 +91,14 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('mouseenter', () => cursor.classList.add('hover'));
             link.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
+
+        // Nascondi il cursore se il mouse esce dalla finestra del browser
+        document.addEventListener('mouseout', () => {
+            cursor.style.display = 'none';
+        });
+    } else if (cursor) {
+        // Se è un dispositivo touch (tablet/telefono), assicurati che sia spento
+        cursor.style.display = 'none';
     }
 
     // ==========================================
