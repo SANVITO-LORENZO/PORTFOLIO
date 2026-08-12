@@ -158,6 +158,14 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('language', isEn ? 'en' : 'it');
         updateCVLink(isEn);
         startTyping(isEn); 
+        
+        // Aggiorna il testo invisibile accessibile per gli screen reader
+        const srTitle = document.getElementById('sr-title');
+        if (srTitle) {
+            srTitle.textContent = isEn 
+                ? "Software Developer & Digital Solutions" 
+                : "Sviluppatore Software & Soluzioni Digitali";
+        }
     });
 
     // ==========================================
@@ -179,7 +187,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // 9. MENU MOBILE
     // ==========================================
     menuToggle?.addEventListener('click', () => {
-        navMenu?.classList.toggle('active');
+        const isActive = navMenu?.classList.toggle('active');
+        
+        // Comunica allo screen reader se il menu è aperto o chiuso
+        menuToggle.setAttribute('aria-expanded', isActive);
+        
         menuToggle.querySelector('i').classList.toggle('fa-bars');
         menuToggle.querySelector('i').classList.toggle('fa-xmark');
     });
@@ -187,10 +199,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 10. ANIMAZIONI REVEAL ALLO SCROLL E TEXT REVEAL
     // ==========================================
-    const observer = new IntersectionObserver((entries) => {
+    // Ottimizzato: smette di osservare dopo la prima animazione
+    const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
+                obs.unobserve(entry.target);
             }
         });
     }, { threshold: 0.1 });
